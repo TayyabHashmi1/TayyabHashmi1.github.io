@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tayyab Hashmi</title>
+<meta name="description" content="Senior Systems Administrator for hybrid cloud infrastructure: Azure Virtual Desktop, Azure and AWS migrations, VMware, Windows Server, Entra ID, PowerShell.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#0b1015; --surface:#121922; --line:#243040; --fg:#e7edf3; --muted:#93a1b1;
+  --azure:#5a94ff; --aws:#f0a43c; --ok:#3ddc97; --idle:#2b3747;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){--bg:#f3f5f8;--surface:#ffffff;--line:#d8dfe8;--fg:#0f1822;--muted:#526273;--azure:#1f5fd6;--aws:#b36a00;--ok:#0f7d58;--idle:#cfd8e3;color-scheme:light}
+}
+:root[data-theme="light"]{--bg:#f3f5f8;--surface:#ffffff;--line:#d8dfe8;--fg:#0f1822;--muted:#526273;--azure:#1f5fd6;--aws:#b36a00;--ok:#0f7d58;--idle:#cfd8e3;color-scheme:light}
+:root[data-theme="dark"]{--bg:#0b1015;--surface:#121922;--line:#243040;--fg:#e7edf3;--muted:#93a1b1;--azure:#5a94ff;--aws:#f0a43c;--ok:#3ddc97;--idle:#2b3747;color-scheme:dark}
+
+*{box-sizing:border-box}body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;min-width:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--azure);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.mono{font-family:var(--mono)}
+.label{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:31;background:transparent}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--azure),var(--aws))}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-left,0px))}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:58px}
+.brand{font:700 17px var(--display);text-decoration:none;display:flex;align-items:center;gap:10px}
+.led{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px;transition:color .2s,background .2s}
+nav a:hover{color:var(--fg);background:var(--surface)}
+.theme{font:500 12px var(--mono);color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.theme:hover{color:var(--fg)}
+
+.hero{padding-block:clamp(40px,7vw,84px) clamp(32px,5vw,56px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font:500 13px var(--mono);color:var(--muted)}
+.hero h1{font-size:clamp(40px,6.2vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.025em;margin-block:22px 14px}
+.hero h1 .name{display:block;color:var(--fg)}
+.role{display:block;font:500 clamp(18px,2.4vw,24px)/1.3 var(--mono);color:var(--azure);min-height:1.4em}
+.caret{display:inline-block;width:.55ch;height:1.05em;background:var(--azure);vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{color:var(--muted);max-width:54ch;font-size:18px;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--line);transition:transform .2s,background .2s,border-color .2s}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.replay{font:500 12px var(--mono);color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+.replay:hover{color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:clamp(5px,1.2vw,9px);margin-bottom:18px}
+.grid span{aspect-ratio:1;border-radius:4px;background:var(--idle);transition:background .35s,transform .35s,box-shadow .35s}
+.grid span.moving{background:var(--fg);transform:scale(1.35)}
+.grid span.azure{background:var(--azure)}
+.grid span.aws{background:var(--aws)}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.legend div{border-top:2px solid var(--line);padding-top:10px}
+.legend .n{font:700 30px/1 var(--display);font-variant-numeric:tabular-nums}
+.legend .k{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.legend .az{border-color:var(--azure)}.legend .aw{border-color:var(--aws)}
+.legend .az .n{color:var(--azure)}.legend .aw .n{color:var(--aws)}
+
+section{padding-block:clamp(44px,7vw,84px);border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.sec-head h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .25s,border-color .25s;min-width:0}
+.card:hover{transform:translateY(-4px);border-color:var(--muted)}
+.card .label{display:block;margin-bottom:14px}
+.card h3{font-size:20px;margin-bottom:8px;letter-spacing:-.01em}
+.card p{color:var(--muted);margin:0;font-size:15px}
+.card.wide{grid-column:1/-1}
+.card.feature{border-color:color-mix(in srgb,var(--azure) 50%,var(--line))}
+
+.timeline{display:grid;gap:0;position:relative;margin:0;padding:0;list-style:none}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.job{position:relative;padding:0 0 34px 38px;min-width:0}
+.job::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--azure)}
+.job.current::before{background:var(--ok);border-color:var(--ok);animation:pulse 2.2s infinite}
+.job .when{font:500 13px var(--mono);color:var(--muted)}
+.job h3{font-size:21px;margin:4px 0 4px}
+.job .org{color:var(--muted);margin-bottom:10px}
+.job ul{margin:0;padding-left:18px;color:var(--muted)}
+.job li+li{margin-top:4px}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px 40px}
+.skills h3{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:14px;transition:border-color .2s,transform .2s}
+.chip:hover{border-color:var(--azure);transform:translateY(-2px)}
+
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+.contact h2{font-size:clamp(30px,4.6vw,54px);line-height:1.05;letter-spacing:-.025em}
+.facts{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.facts li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;min-width:0}
+.facts span:first-child{color:var(--muted)}
+footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+
+.pre{opacity:0;transform:translateY(22px)}
+.pre.in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr}
+  nav a:not(.keep){display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  .pre{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+<div class="wrap">
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#top"><span class="led" aria-hidden="true"></span>Tayyab Hashmi</a>
+  <nav aria-label="Sections">
+    <a href="#work">Work</a><a href="#experience">Experience</a><a href="#skills">Skills</a>
+    <a class="keep" href="#contact">Contact</a>
+    <button class="theme" id="theme" type="button" aria-label="Toggle light or dark theme">theme</button>
+  </nav>
+</div></header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <span class="status"><span class="led" aria-hidden="true"></span>Open to work · Lincoln, CA</span>
+    <h1><span class="name">Tayyab Hashmi</span><span class="role" aria-live="off"><span id="role">Senior Systems Administrator</span><span class="caret" aria-hidden="true"></span></span></h1>
+    <p class="lead">Ten years running Windows, VMware, Azure and AWS for enterprise teams. Most recently at UC Davis, where I moved 100 servers off on-prem VMware and ran Azure Virtual Desktop for the university.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://www.linkedin.com/in/tayyab-hashmi/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      <a class="btn ghost" href="#work">See the work</a>
+    </div>
+  </div>
+
+  <div class="panel" id="panel">
+    <div class="panel-head">
+      <span class="label">VMware → Cloud · 100 servers</span>
+      <button class="replay" id="replay" type="button">replay</button>
+    </div>
+    <div class="grid" id="grid" aria-hidden="true"></div>
+    <div class="legend">
+      <div><div class="n" id="cTotal">100</div><div class="k">Servers moved</div></div>
+      <div class="az"><div class="n" id="cAz">60</div><div class="k">To Azure</div></div>
+      <div class="aw"><div class="n" id="cAw">40</div><div class="k">To AWS</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="sec-head"><h2>Selected work</h2><span class="label">Infrastructure, identity, security</span></div>
+  <div class="cards">
+    <article class="card feature reveal">
+      <span class="label">Migration</span>
+      <h3>VMware to Azure and AWS</h3>
+      <p>Led the move of 100 servers, 60 to Azure and 40 to AWS, with production and test cutovers and minimal downtime.</p>
+    </article>
+    <article class="card reveal">
+      <span class="label">End-user computing</span>
+      <h3>Azure Virtual Desktop</h3>
+      <p>Deployed and managed host pools and session hosts. Intune handles device and policy management; Nerdio Manager automates deployment and trims Azure spend.</p>
+    </article>
+    <article class="card reveal">
+      <span class="label">Security</span>
+      <h3>Hardening and compliance</h3>
+      <p>Kept servers patched and hardened to UC Davis IS-3 and IS-12, remediated vulnerabilities, and maintained Protection Level 4 systems.</p>
+    </article>
+    <article class="card reveal">
+      <span class="label">Availability</span>
+      <h3>SQL Server high availability</h3>
+      <p>Ran Always On Availability Groups and Windows failover clusters, including failover testing and patching.</p>
+    </article>
+    <article class="card reveal">
+      <span class="label">Cloud</span>
+      <h3>AWS foundations</h3>
+      <p>Provisioned EC2, designed VPCs with subnets, route tables, security groups and ACLs, and used Systems Manager and AWS Backup for patching and recovery.</p>
+    </article>
+    <article class="card reveal">
+      <span class="label">Datacenter</span>
+      <h3>Virtualizing physical servers</h3>
+      <p>Assessed 100+ physical servers for virtualization and completed P2V and V2V migrations across three data centers, plus an ESXi upgrade.</p>
+    </article>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="sec-head"><h2>Experience</h2><span class="label">2015 to 2026</span></div>
+  <ol class="timeline">
+    <li class="job current reveal">
+      <div class="when">Aug 2022 – Aug 2026 · Full-time</div>
+      <h3>Senior System Administrator</h3>
+      <div class="org">University of California, Davis</div>
+      <ul>
+        <li>Administered Windows Server 2012 R2 through 2022, including upgrades and migrations.</li>
+        <li>Ran Azure Virtual Desktop, Intune and Nerdio Manager, plus VMware vSphere and HPC infrastructure for UC Davis Health.</li>
+        <li>Used ServiceNow and Jira for incidents, changes and requests.</li>
+      </ul>
+    </li>
+    <li class="job reveal">
+      <div class="when">Jul 2021 – Aug 2022</div>
+      <h3>System Technician</h3>
+      <div class="org">Cokeva, managed service provider for KLA</div>
+      <ul>
+        <li>Managed VMware across three data centers and integrated Active Directory with Azure AD and Office 365.</li>
+        <li>Supported disaster recovery, storage replication and server lifecycle work.</li>
+      </ul>
+    </li>
+    <li class="job reveal">
+      <div class="when">Aug 2016 – Dec 2020</div>
+      <h3>Senior VMware Windows Administrator</h3>
+      <div class="org">Nexius</div>
+      <ul>
+        <li>Administered Windows Server, Active Directory, Exchange and IIS, with 24x7 on-call support.</li>
+        <li>Implemented ADFS and directory sync for Office 365 and deployed Symantec Endpoint Protection across 300+ servers.</li>
+      </ul>
+    </li>
+    <li class="job reveal">
+      <div class="when">Sep 2015 – Sep 2016</div>
+      <h3>Windows System Administrator Intern</h3>
+      <div class="org">Vohra Solution</div>
+    </li>
+  </ol>
+  <p class="label" style="margin-top:8px">Education · MSc, University of the Punjab, Lahore · 2017</p>
+</section>
+
+<section id="skills">
+  <div class="sec-head"><h2>Skills</h2><span class="label">What I run day to day</span></div>
+  <div class="skills">
+    <div class="reveal"><h3>Cloud</h3><div class="chips"><span class="chip">Azure Virtual Desktop</span><span class="chip">Azure VMs and networking</span><span class="chip">Azure Arc</span><span class="chip">AWS EC2</span><span class="chip">AWS VPC</span><span class="chip">Systems Manager</span><span class="chip">AWS Backup</span><span class="chip">Nerdio Manager</span></div></div>
+    <div class="reveal"><h3>Identity</h3><div class="chips"><span class="chip">Active Directory</span><span class="chip">Microsoft Entra ID</span><span class="chip">Entra Connect</span><span class="chip">ADFS</span><span class="chip">Intune</span><span class="chip">Group Policy</span><span class="chip">DNS and DHCP</span></div></div>
+    <div class="reveal"><h3>Virtualization</h3><div class="chips"><span class="chip">vSphere</span><span class="chip">ESXi</span><span class="chip">vCenter</span><span class="chip">HA and DRS</span><span class="chip">vMotion</span><span class="chip">P2V and V2V</span><span class="chip">Site Recovery Manager</span><span class="chip">Hyper-V</span></div></div>
+    <div class="reveal"><h3>Automation and operations</h3><div class="chips"><span class="chip">PowerShell</span><span class="chip">SCCM</span><span class="chip">WSUS</span><span class="chip">ServiceNow</span><span class="chip">Jira</span></div></div>
+    <div class="reveal"><h3>Security</h3><div class="chips"><span class="chip">IS-3 and IS-12</span><span class="chip">System hardening</span><span class="chip">Patch management</span><span class="chip">Vulnerability remediation</span></div></div>
+    <div class="reveal"><h3>Databases</h3><div class="chips"><span class="chip">SQL Server Always On</span><span class="chip">Failover clustering</span><span class="chip">SSRS and SSIS</span><span class="chip">Azure SQL</span></div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <div class="reveal">
+      <span class="label">Next role</span>
+      <h2 style="margin-top:14px">Hiring for systems or cloud infrastructure? Let's talk.</h2>
+      <div class="cta" style="margin-top:26px"><a class="btn primary" href="https://www.linkedin.com/in/tayyab-hashmi/" target="_blank" rel="noopener">Message me on LinkedIn</a></div>
+    </div>
+    <ul class="facts reveal">
+      <li><span>Target roles</span><span>Systems Admin, Cloud or Infrastructure Engineer</span></li>
+      <li><span>Location</span><span>Lincoln, California</span></li>
+      <li><span>Work style</span><span>Hybrid, remote or on-site</span></li>
+      <li><span>Work authorization</span><span>U.S. citizen</span></li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">© Tayyab Hashmi. Project details are described at a high level and leave out confidential information.</div></footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(id){return document.getElementById(id)};
+
+  var root = document.documentElement;
+  $('theme').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if(!cur){ cur = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+    root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+  });
+
+  var bar = $('bar');
+  function prog(){ var h = document.documentElement.scrollHeight - innerHeight; bar.style.width = (h>0 ? Math.min(100, scrollY/h*100) : 0) + '%'; }
+  addEventListener('scroll', prog, {passive:true}); prog();
+
+  var grid = $('grid'), dots = [], dest = [];
+  for(var i=0;i<100;i++){ var s=document.createElement('span'); grid.appendChild(s); dots.push(s); dest.push(i<60?'azure':'aws'); }
+  var seed = 7; function rnd(){ seed = (seed*1664525+1013904223) % 4294967296; return seed/4294967296; }
+  for(var j=dest.length-1;j>0;j--){ var k=Math.floor(rnd()*(j+1)); var t=dest[j]; dest[j]=dest[k]; dest[k]=t; }
+  function paint(){ dots.forEach(function(d,n){ d.className = dest[n]; }); $('cTotal').textContent='100'; $('cAz').textContent='60'; $('cAw').textContent='40'; }
+  paint();
+  var timer = null;
+  function play(){
+    if(reduce){ paint(); return; }
+    clearInterval(timer);
+    dots.forEach(function(d){ d.className=''; });
+    var n=0, az=0, aw=0;
+    $('cTotal').textContent='0'; $('cAz').textContent='0'; $('cAw').textContent='0';
+    timer = setInterval(function(){
+      if(n>0){ var p=n-1; dots[p].className = dest[p]; }
+      if(n>=100){ clearInterval(timer); paint(); return; }
+      dots[n].className = 'moving';
+      if(dest[n]==='azure') az++; else aw++;
+      $('cTotal').textContent = n+1; $('cAz').textContent = az; $('cAw').textContent = aw;
+      n++;
+    }, 55);
+  }
+  $('replay').addEventListener('click', play);
+  setTimeout(play, 500);
+
+  var roles = ['Senior Systems Administrator','Azure Virtual Desktop engineer','VMware to cloud migrations','Windows and Entra ID specialist','PowerShell automation'];
+  var el = $('role'), ri = 0, ci = roles[0].length, del = true, wait = 0;
+  if(!reduce){
+    setInterval(function(){
+      if(wait>0){ wait--; return; }
+      var w = roles[ri];
+      if(del){ ci--; el.textContent = w.slice(0,ci); if(ci<=0){ del=false; ri=(ri+1)%roles.length; } }
+      else { ci++; w = roles[ri]; el.textContent = w.slice(0,ci); if(ci>=w.length){ del=true; wait=26; } }
+    }, 55);
+    wait = 40;
+  }
+
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -4% 0px'});
+    var items = document.querySelectorAll('.reveal');
+    items.forEach(function(n,idx){
+      var r = n.getBoundingClientRect();
+      if(r.top > innerHeight){ n.classList.add('pre'); n.style.setProperty('--d', ((idx%3)*0.08)+'s'); io.observe(n); }
+    });
+  }
+})();
+</script>
+</body>
+</html>
