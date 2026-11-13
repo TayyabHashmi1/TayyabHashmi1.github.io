@@ -35,9 +35,6 @@
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
   color-scheme:dark;
 }
-@media (prefers-color-scheme: light){
-  :root:not([data-theme="dark"]){--bg:#f3f5f8;--surface:#ffffff;--line:#d8dfe8;--fg:#0f1822;--muted:#526273;--azure:#1f5fd6;--aws:#b36a00;--ok:#0f7d58;--idle:#cfd8e3;color-scheme:light}
-}
 :root[data-theme="light"]{--bg:#f3f5f8;--surface:#ffffff;--line:#d8dfe8;--fg:#0f1822;--muted:#526273;--azure:#1f5fd6;--aws:#b36a00;--ok:#0f7d58;--idle:#cfd8e3;color-scheme:light}
 :root[data-theme="dark"]{--bg:#0b1015;--surface:#121922;--line:#243040;--fg:#e7edf3;--muted:#93a1b1;--azure:#5a94ff;--aws:#f0a43c;--ok:#3ddc97;--idle:#2b3747;color-scheme:dark}
 
@@ -325,7 +322,7 @@ footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--mute
   var root = document.documentElement;
   $('theme').addEventListener('click', function(){
     var cur = root.getAttribute('data-theme');
-    if(!cur){ cur = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+    if(!cur){ cur = 'dark'; }
     root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
   });
 
