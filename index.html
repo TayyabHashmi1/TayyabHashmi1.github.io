@@ -128,6 +128,8 @@ section{padding-block:clamp(44px,7vw,84px);border-top:1px solid var(--line)}
 .facts{display:grid;gap:12px;margin:0;padding:0;list-style:none}
 .facts li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;min-width:0}
 .facts span:first-child{color:var(--muted)}
+.facts a{color:var(--fg);text-decoration:underline;text-decoration-color:var(--muted);text-underline-offset:3px;text-align:right}
+.facts a:hover{color:var(--azure)}
 footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 
 .pre{opacity:0;transform:translateY(22px)}
@@ -307,6 +309,8 @@ footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--mute
       <li><span>Location</span><span>Lincoln, California</span></li>
       <li><span>Work style</span><span>Hybrid, remote or on-site</span></li>
       <li><span>Work authorization</span><span>U.S. citizen</span></li>
+      <li><span>Email</span><a class="js-mail" href="https://www.linkedin.com/in/tayyab-hashmi/" target="_blank" rel="noopener">Contact via LinkedIn</a></li>
+      <li><span>Phone</span><a class="js-tel" href="https://www.linkedin.com/in/tayyab-hashmi/" target="_blank" rel="noopener">Contact via LinkedIn</a></li>
     </ul>
   </div>
 </section>
@@ -377,6 +381,15 @@ footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--mute
       if(r.top > innerHeight){ n.classList.add('pre'); n.style.setProperty('--d', ((idx%3)*0.08)+'s'); io.observe(n); }
     });
   }
+})();
+</script>
+<script>
+(function(){
+  var u='hashmitayyab313', d='gmail.com', p='9165813133';
+  var mails=document.querySelectorAll('a.js-mail');
+  for(var i=0;i<mails.length;i++){ var e=u+'@'+d; mails[i].href='mailto:'+e; mails[i].removeAttribute('target'); mails[i].textContent=e; }
+  var tels=document.querySelectorAll('a.js-tel');
+  for(var j=0;j<tels.length;j++){ tels[j].href='tel:+1'+p; tels[j].removeAttribute('target'); tels[j].textContent=p.slice(0,3)+'-'+p.slice(3,6)+'-'+p.slice(6); }
 })();
 </script>
 </body>
